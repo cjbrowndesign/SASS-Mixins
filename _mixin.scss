@@ -1,0 +1,56 @@
+//
+// SASS Mixins
+//
+
+// Responsive breakpoint mixins
+@mixin bp($name) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $name) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints, $name))} {
+      @content;
+    }
+  }
+}
+
+// Target IE10+
+@mixin ie {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      @content;
+  }
+}
+
+// Target Edge
+@mixin edge {
+  @supports (-ms-ime-align: auto) {
+      @content;
+  }
+}
+
+// Vertically center element
+@mixin centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+// Flex children grid
+@mixin grid ($columns, $nest: "") {
+  @if $nest == "nest" {
+    width: calc(100% / 12 * #{$columns});
+  } @else {
+    width: calc(100% / 12 * #{$columns} - 2%);
+  }
+}
+
+// Animation Mixins
+@mixin animate ($duration, $delay, $animation) {
+  animation-duration: $duration;
+  animation-delay: $delay;
+  animation-name: $animation;
+  animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation-fill-mode: backwards;
+}
